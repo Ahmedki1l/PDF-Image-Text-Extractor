@@ -1,13 +1,17 @@
 {
   "name": "sinsintro-pdf-extractor",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "A library to extract text and images from PDFs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "pdf",
+    "text extraction",
+    "image extraction"
+  ],
+  "author": "SinSintro",
   "license": "ISC",
   "dependencies": {
     "pdfjs-dist": "^4.6.82"

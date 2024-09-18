@@ -6,7 +6,38 @@ const getBase64Image = (canvas) => {
   return canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, '');
 };
 
-const extractImagesFromPdf = async (file) => {
+const resizeImage = (base64Image, maxWidth, maxHeight) => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = `data:image/png;base64,${base64Image}`;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      let width = img.width;
+      let height = img.height;
+
+      if (width > height) {
+        if (width > maxWidth) {
+          height *= maxWidth / width;
+          width = maxWidth;
+        }
+      } else {
+        if (height > maxHeight) {
+          width *= maxHeight / height;
+          height = maxHeight;
+        }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      ctx.drawImage(img, 0, 0, width, height);
+      const resizedBase64 = canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, '');
+      resolve(resizedBase64);
+    };
+  });
+};
+
+const extractImagesFromPdf = async (file, maxWidth = 800, maxHeight = 800) => {
   try {
     const arrayBuffer = await file.arrayBuffer();
     const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
@@ -25,7 +56,8 @@ const extractImagesFromPdf = async (file) => {
       };
       await page.render(renderContext).promise;
 
-      const base64Image = getBase64Image(canvas);
+      let base64Image = getBase64Image(canvas);
+      base64Image = await resizeImage(base64Image, maxWidth, maxHeight);
       imageData.push(base64Image);
     }
     return imageData;
@@ -55,3 +87,4 @@ const extractTextFromPdf = async (file) => {
 };
 
 export { extractTextFromPdf, extractImagesFromPdf };
+
