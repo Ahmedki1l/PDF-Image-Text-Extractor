@@ -6,6 +6,7 @@ A simple library to extract text and images from PDF files.
 
 ```bash
 npm install sinsintro-pdf-extractor
+```
 
 ## Usage
 
