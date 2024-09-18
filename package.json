@@ -1,8 +1,8 @@
 {
   "name": "sinsintro-pdf-extractor",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A library to extract text and images from PDFs",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
