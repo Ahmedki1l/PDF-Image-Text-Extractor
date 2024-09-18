@@ -86,4 +86,5 @@ If you want to try the code examples above in an HTML file, here’s how you cou
 
 ## License
 
-MIT License
+This software is licensed under the PDF Extractor License. See the `LICENSE` file for more details.
+
